@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AspiClienteService } from '../services/aspi-cliente.service';
+import { ApiclienteService } from '../services/apicliente.service';
+import { Response } from '../models/response';
+import { DialogClienteComponent } from '../home/dialog/dialogcliente.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Cliente } from '../models/cliente';
+import { DialogDeleteComponenet } from '../common/delete/dialogdelete.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cliente',
@@ -8,15 +14,60 @@ import { AspiClienteService } from '../services/aspi-cliente.service';
 })
 export class ClienteComponent implements OnInit {
 
+  public lst: any[] = [];
+  public columnas: string[] = ['id', 'nombre', 'actions'];
+  readonly width: string = '300px';
+
   constructor(
-    private apliCliente: AspiClienteService
+    private apiCliente: ApiclienteService,
+    public  dialog: MatDialog,
+    public snackBar: MatSnackBar, 
   ) { 
-    apliCliente.getClientes().subscribe( response => {
-      console.log(response);
-    })
+    
   }
 
   ngOnInit(): void {
+    this.getClientes();
   }
+  
+getClientes() {
+  this.apiCliente.getClientes().subscribe(response =>{
+    this.lst = response.data;
+  });
+}
 
+openAdd() {
+  const dialogRef = this.dialog.open(DialogClienteComponent, { 
+    width: this.width
+  });
+  dialogRef.afterClosed().subscribe(result =>{
+    this.getClientes();
+  })
+}  
+
+openEdit(cliente: Cliente){
+  const dialogRef = this.dialog.open(DialogClienteComponent, { 
+    width: this.width,
+    data: cliente
+  });
+  dialogRef.afterClosed().subscribe(result =>{
+    this.getClientes();
+  })
+}
+
+delete(cliente: Cliente){
+  const dialogRef = this.dialog.open(DialogDeleteComponenet, { 
+    width: this.width
+  });
+  dialogRef.afterClosed().subscribe(result =>{
+    if (result) {
+      this.apiCliente.delete(cliente.id).subscribe(response => {
+        if (response.exito === 1) {
+          this.snackBar.open('Cliente eliminado con éxito', '', {duration: 2000});
+          this.getClientes();
+        }
+      });
+    }
+  });
+}
 }
