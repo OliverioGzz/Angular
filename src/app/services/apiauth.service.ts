@@ -37,6 +37,7 @@ export class ApiauthService{
     }
 
     logout(){
-      localStorage.removeItem(null!)
+      localStorage.removeItem('usuario')
+      this.usuarioSubject.next(null!);
     }
 }
