@@ -16,6 +16,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogClienteComponent } from './home/dialog/dialogcliente.component';
 import { FormsModule } from '@angular/forms';
 import { DialogDeleteComponenet } from './common/delete/dialogdelete.component';
+import { MatCardModule } from '@angular/material/card'
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { DialogDeleteComponenet } from './common/delete/dialogdelete.component';
     HomeComponent, 
     ClienteComponent,
     DialogClienteComponent,
-    DialogDeleteComponenet
+    DialogDeleteComponenet,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { DialogDeleteComponenet } from './common/delete/dialogdelete.component';
     MatButtonModule,
     MatInputModule,
     MatSnackBarModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
