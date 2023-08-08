@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, map } from "rxjs";
 import { Response } from "../models/response";
 import { Usuario } from "../models/usuario";
-
+import { Login } from "../models/login"
 const httpOption = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -23,8 +23,8 @@ export class ApiauthService{
       this.usuarioSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('usuario')!));
     }
 
-    login(email: string, password: string): Observable<Response>{
-        return this._http.post<Response>(this.url, {email, password}, httpOption).pipe(
+    login(login: Login): Observable<Response>{
+        return this._http.post<Response>(this.url, login, httpOption).pipe(
           map(res => {
             if (res.exito === 1) {
               const usuario: Usuario = res.data;
