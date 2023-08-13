@@ -15,12 +15,17 @@ const httpOption = {
 })
 export class ApiauthService{
     url: string = 'https://localhost:7248/api/User/login';
+
     private usuarioSubject: BehaviorSubject<Usuario>;
+    public usuario: Observable<Usuario>;
+
     public get usuarioData(): Usuario{
+    
       return this.usuarioSubject.value;
     }
     constructor(private _http: HttpClient){
       this.usuarioSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('usuario')!));
+      this.usuario = this.usuarioSubject.asObservable();
     }
 
     login(login: Login): Observable<Response>{
