@@ -19,6 +19,8 @@ import { DialogDeleteComponenet } from './common/delete/dialogdelete.component';
 import { MatCardModule } from '@angular/material/card'
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './security/jwt.interceptor';
+import { VentaComponent } from './venta/venta.component';
+import { DialogVentaComponent } from './venta/dialog/dialogventa.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { JwtInterceptor } from './security/jwt.interceptor';
     ClienteComponent,
     DialogClienteComponent,
     DialogDeleteComponenet,
-    LoginComponent
+    DialogVentaComponent,
+    LoginComponent,
+    VentaComponent
   ],
   imports: [
     BrowserModule,
